@@ -13,20 +13,34 @@ class _MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<MyHomeCubit>();
-    return BlocConsumer<MyHomeCubit, MyHomeState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        return Column(
-          children: [
-            Text(cubit.hi),
-            ElevatedButton(
-              onPressed: cubit.onTap,
-              child: Text("change"),
-              onLongPress: cubit.onLongPress,
-            )
-          ],
-        );
-      },
+
+    return Scaffold(
+      appBar: AppBar(title: Text('My Home')),
+      body: BlocConsumer<MyHomeCubit, MyHomeState>(
+        listener: (context, state) {
+
+          if (state is changeUI) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("State changed: ${cubit.hi}")),
+            );
+          }
+        },
+        builder: (context, state) {
+          return Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(cubit.hi),
+                ElevatedButton(
+                  onPressed: cubit.onTap,
+                  onLongPress: cubit.onLongPress,
+                  child: const Text("Change"),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
