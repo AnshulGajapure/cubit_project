@@ -5,3 +5,4 @@ sealed class MyHomeState {}
 
 final class MyHomeInitial extends MyHomeState {}
 final class changeUI extends MyHomeState {}
+final class fail extends MyHomeState {}
