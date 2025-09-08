@@ -5,10 +5,19 @@ part 'my_home_state.dart';
 
 class MyHomeCubit extends Cubit<MyHomeState> {
   String hi = "Hello";
+  double count = 1;
   MyHomeCubit() : super(MyHomeInitial());
-  void onTap() {
-    hi = "Hi from Tap!";
-    emit(changeUI());
+  onTap(String? text) {
+    if (text == "hi" && hi != "Hi from Tap!") {
+      count++;
+      emit(changeUI());
+    } else if (text != "hi" && hi != "wrong") {
+      hi = "wrong";
+      emit(changeUI());
+    }
+
+
+
   }
 
   void onLongPress() {
